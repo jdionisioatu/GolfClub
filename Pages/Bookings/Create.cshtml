@@ -1,0 +1,50 @@
+﻿@page
+@model GolfClub.Pages.Bookings.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Booking.PlayerOneId" class="control-label"></label>
+                <select asp-for="Booking.PlayerOneId" class ="form-control" asp-items="ViewBag.PlayerOneId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.PlayerTwoId" class="control-label"></label>
+                <select asp-for="Booking.PlayerTwoId" class ="form-control" asp-items="ViewBag.PlayerTwoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.PlayerThreeId" class="control-label"></label>
+                <select asp-for="Booking.PlayerThreeId" class ="form-control" asp-items="ViewBag.PlayerThreeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.PlayerFourId" class="control-label"></label>
+                <select asp-for="Booking.PlayerFourId" class ="form-control" asp-items="ViewBag.PlayerFourId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.TeeTime" class="control-label"></label>
+                <input asp-for="Booking.TeeTime" class="form-control" />
+                <span asp-validation-for="Booking.TeeTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
