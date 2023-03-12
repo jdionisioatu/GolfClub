@@ -1,8 +1,10 @@
 ﻿@page
+@using GolfClub.Models
+@using GolfClub.Utils
 @model GolfClub.Pages.Members.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage/View Members";
 }
 
 <h1>Index</h1>
@@ -29,26 +31,155 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Member) {
+        @{
+            SortedDictionary<string, Member> sortedMembers;
+            if(!(Model.ReverseSort == "true")) {
+                sortedMembers = new SortedDictionary<string, Member>();
+                foreach (var item in Model.Member)
+                {
+                    switch (Model.WhatToView)
+                    {
+                        case "male":
+                            if (item.Gender == "Male")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "female":
+                            if (item.Gender == "Female")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "other":
+                            if (item.Gender == "Other")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapbellowequalsten":
+                            if (item.Handicap <= 10)
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapbetweenelevenandtwenty":
+                            if (item.Handicap > 10 && item.Handicap <= 20) 
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapabovetewnty":
+                            if (item.Handicap > 20)
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "all":
+                            sortedMembers.Add(item.Name, item);
+                            break;
+                        default:
+                            sortedMembers.Add(item.Name, item);
+                            break;
+                    }
+                }
+            } else
+            {
+                sortedMembers = new SortedDictionary<string, Member>(new ReverseComparer<string>());
+                foreach (var item in Model.Member)
+                {
+                    switch (Model.WhatToView)
+                    {
+                        case "male":
+                            if (item.Gender == "Male")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "female":
+                            if (item.Gender == "Female")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "other":
+                            if (item.Gender == "Other")
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapbellowequalsten":
+                            if (item.Handicap <= 10)
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapbetweenelevenandtwenty":
+                            if (item.Handicap > 10 && item.Handicap <= 20)
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "handicapabovetewnty":
+                            if (item.Handicap > 20)
+                            {
+                                sortedMembers.Add(item.Name, item);
+                            }
+                            break;
+                        case "all":
+                            sortedMembers.Add(item.Name, item);
+                            break;
+                        default:
+                            sortedMembers.Add(item.Name, item);
+                            break;
+                    }
+                }
+            }
+        }
+@foreach (var item in sortedMembers) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Value.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Value.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+                @Html.DisplayFor(modelItem => item.Value.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Handicap)
+                @Html.DisplayFor(modelItem => item.Value.Handicap)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.MembershipNumberId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.MembershipNumberId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.MembershipNumberId">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.Value.MembershipNumberId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Value.MembershipNumberId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Value.MembershipNumberId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<p>
+    <a asp-page-handler="ViewAllMembers">View All Members</a>
+</p>
+<p>
+    <a asp-page-handler="ReverseSortingOrder">Reverse Name Sorting order</a>
+</p>
+<p>
+    <a asp-page-handler="ViewMaleOnly">View Male Gender Members</a>
+</p>
+<p>
+    <a asp-page-handler="ViewFemaleOnly">View Female Gender Members</a>
+</p>
+<p>
+    <a asp-page-handler="ViewOtherOnly">View Other Gender Members</a>
+</p>
+<p>
+    <a asp-page-handler="ViewHandiCapBellowEqualsTen">View Members with Handicap bellow or equal to 10</a>
+</p>
+<p>
+    <a asp-page-handler="ViewHandiCapBellowBetweenElevenAndTwenty">View Members with Handicap between 11 and 20</a>
+</p>
+<p>
+    <a asp-page-handler="ViewHandiCapAboveTwenty">View Members with Handicap above 20</a>
+</p>

@@ -8,17 +8,18 @@ namespace GolfClub.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MembershipNumberId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The name is required")]
         [StringLength(100)]
         public string Name { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "The email is required")]
+        [EmailAddress(ErrorMessage = "Please enter a valid e-mail address")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Gender is required")]
         [RegularExpression("^(Male|Female|Other)$")]
         public string Gender { get; set; }
-        [Required]
-        [Range(0, 54)]
+        [Required(ErrorMessage = "Handicap is required")]
+        [Range(0, 54, ErrorMessage = "Handicap must be between 0 and 54")]
         public int Handicap { get; set; }
+
     }
 }

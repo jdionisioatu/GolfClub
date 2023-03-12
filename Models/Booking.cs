@@ -26,7 +26,7 @@ namespace GolfClub.Models
         
 
         [Required]
-        [TimeIn15MinIntervals]
+        [TimeIn15MinIntervals(ErrorMessage = "Bookings must start every 15 minutes from the hour")]
         [DataType(DataType.Date)]
         public DateTime TeeTime { get; set; }
     }
