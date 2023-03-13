@@ -36,6 +36,19 @@ namespace GolfClub.Pages.Bookings
             else 
             {
                 Booking = booking;
+                Booking.PlayerOne = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerOneId);
+                if (Booking.PlayerTwoId != 0)
+                {
+                    Booking.PlayerTwo = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerTwoId);
+                }
+                if (Booking.PlayerThreeId != 0)
+                {
+                    Booking.PlayerThree = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerThreeId);
+                }
+                if (Booking.PlayerFourId != 0)
+                {
+                    Booking.PlayerFour = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerFourId);
+                }
             }
             return Page();
         }
