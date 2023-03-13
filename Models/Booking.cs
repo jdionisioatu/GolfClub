@@ -8,6 +8,7 @@ namespace GolfClub.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BookingId { get; set; }
+
         [Required]
         public int PlayerOneId { get; set; }
 
@@ -16,7 +17,7 @@ namespace GolfClub.Models
         public int? PlayerFourId { get; set; }
 
         [ForeignKey("PlayerOneId")]
-        public Member PlayerOne { get; set; }
+        public Member? PlayerOne { get; set; }
         [ForeignKey("PlayerTwoId")]
         public Member? PlayerTwo { get; set; }
         [ForeignKey("PlayerThreeId")]
@@ -27,7 +28,7 @@ namespace GolfClub.Models
 
         [Required]
         [TimeIn15MinIntervals(ErrorMessage = "Bookings must start every 15 minutes from the hour")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime TeeTime { get; set; }
     }
 

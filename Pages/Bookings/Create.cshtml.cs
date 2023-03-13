@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GolfClub.Data;
 using GolfClub.Models;
 using System.Numerics;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GolfClub.Pages.Bookings
 {
@@ -146,6 +147,19 @@ namespace GolfClub.Pages.Bookings
                         invalidBookingPlayerFour = true;
                     }
                 }
+            }
+            Booking.PlayerOne = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerOneId);
+            if (Booking.PlayerTwoId != 0)
+            {
+                Booking.PlayerTwo = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerTwoId);
+            }
+            if (Booking.PlayerThreeId != 0)
+            {
+                Booking.PlayerThree = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerThreeId);
+            }
+            if (Booking.PlayerFourId != 0)
+            {
+                Booking.PlayerFour = _context.Member.FirstOrDefault(m => m.MembershipNumberId == Booking.PlayerFourId);
             }
             if (invalidBookingPlayerOne)
             {

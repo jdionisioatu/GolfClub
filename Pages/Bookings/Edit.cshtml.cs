@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GolfClub.Data;
 using GolfClub.Models;
+using System.Media;
 
 namespace GolfClub.Pages.Bookings
 {
@@ -30,16 +31,16 @@ namespace GolfClub.Pages.Bookings
                 return NotFound();
             }
 
-            var booking =  await _context.Booking.FirstOrDefaultAsync(m => m.BookingId == id);
+            var booking =  await _context.Booking.Include(x => x.PlayerOne).Include(x => x.PlayerTwo).Include(x => x.PlayerThree).Include(x => x.PlayerFour).FirstOrDefaultAsync(m => m.BookingId == id);
             if (booking == null)
             {
                 return NotFound();
             }
             Booking = booking;
-           ViewData["PlayerFourId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Email");
-           ViewData["PlayerOneId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Email");
-           ViewData["PlayerThreeId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Email");
-           ViewData["PlayerTwoId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Email");
+           ViewData["PlayerFourId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
+           ViewData["PlayerOneId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
+           ViewData["PlayerThreeId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
+           ViewData["PlayerTwoId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
             return Page();
         }
 

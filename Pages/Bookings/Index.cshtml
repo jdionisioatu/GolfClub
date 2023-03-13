@@ -35,16 +35,16 @@
 @foreach (var item in Model.Booking) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayerOne.Email)
+                @Html.DisplayFor(modelItem => item.PlayerOne.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayerTwo.Email)
+                @Html.DisplayFor(modelItem => item.PlayerTwo.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayerThree.Email)
+                @Html.DisplayFor(modelItem => item.PlayerThree.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayerFour.Email)
+                @Html.DisplayFor(modelItem => item.PlayerFour.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeeTime)
