@@ -1,0 +1,62 @@
+﻿@page
+@model GolfClub.Pages.MemberBookingsModel
+
+@{
+    ViewData["Title"] = "MemberBookings";
+}
+
+<h1>MemberBookings</h1>
+
+<h4>List Member Bookings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Get Bookings for Selected Member" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>        
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].BookingId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].TeeTime)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Booking != null)
+        {
+            @foreach (var item in Model.Booking)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeeTime)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+     }
+}

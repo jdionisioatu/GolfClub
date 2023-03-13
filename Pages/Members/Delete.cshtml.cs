@@ -52,6 +52,34 @@ namespace GolfClub.Pages.Members
 
             if (member != null)
             {
+                var booking = _context.Booking.FirstOrDefault(b => b.PlayerOneId == id);
+                if(booking != null)
+                {
+                    Member = member;
+                    ViewData["ErrorMessage"] = "This member has one or more bookings and cannot be deleted";
+                    return Page();
+                }
+                booking = _context.Booking.FirstOrDefault(b => b.PlayerTwoId == id);
+                if (booking != null)
+                {
+                    Member = member;
+                    ViewData["ErrorMessage"] = "This member has one or more bookings and cannot be deleted";
+                    return Page();
+                }
+                booking = _context.Booking.FirstOrDefault(b => b.PlayerThreeId == id);
+                if (booking != null)
+                {
+                    Member = member;
+                    ViewData["ErrorMessage"] = "This member has one or more bookings and cannot be deleted";
+                    return Page(); ;
+                }
+                booking = _context.Booking.FirstOrDefault(b => b.PlayerFourId == id);
+                if (booking != null)
+                {
+                    Member = member;
+                    ViewData["ErrorMessage"] = "This member has one or more bookings cannot be deleted";
+                    return Page();
+                }
                 Member = member;
                 _context.Member.Remove(Member);
                 await _context.SaveChangesAsync();

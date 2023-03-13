@@ -37,10 +37,62 @@ namespace GolfClub.Pages.Bookings
                 return NotFound();
             }
             Booking = booking;
-           ViewData["PlayerFourId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
-           ViewData["PlayerOneId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
-           ViewData["PlayerThreeId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
-           ViewData["PlayerTwoId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
+            
+            if(Booking.PlayerTwoId == null)
+            {
+                var emptyMember = new Member { MembershipNumberId = 0, Name = "Optional" };
+
+                var selectListOptionalList = new List<Member>
+                {
+                    emptyMember
+                };
+                foreach (var item in _context.Set<Member>().OrderBy(p => p.Name))
+                {
+                    selectListOptionalList.Add(item);
+                }
+                ViewData["PlayerTwoId"] = new SelectList(selectListOptionalList, "MembershipNumberId", "Name");
+            } else
+            {
+                ViewData["PlayerTwoId"] = new SelectList(_context.Set<Member>().OrderBy(p => p.Name), "MembershipNumberId", "Name");
+            }
+            if (Booking.PlayerThreeId == null)
+            {
+                var emptyMember = new Member { MembershipNumberId = 0, Name = "Optional" };
+
+                var selectListOptionalList = new List<Member>
+                {
+                    emptyMember
+                };
+                foreach (var item in _context.Set<Member>().OrderBy(p => p.Name))
+                {
+                    selectListOptionalList.Add(item);
+                }
+                ViewData["PlayerThreeId"] = new SelectList(selectListOptionalList, "MembershipNumberId", "Name");
+            }
+            else
+            {
+                ViewData["PlayerThreeId"] = new SelectList(_context.Set<Member>().OrderBy(p => p.Name), "MembershipNumberId", "Name");
+            }
+            if (Booking.PlayerFourId == null)
+            {
+                var emptyMember = new Member { MembershipNumberId = 0, Name = "Optional" };
+
+                var selectListOptionalList = new List<Member>
+                {
+                    emptyMember
+                };
+                foreach (var item in _context.Set<Member>().OrderBy(p => p.Name))
+                {
+                    selectListOptionalList.Add(item);
+                }
+                ViewData["PlayerFourId"] = new SelectList(selectListOptionalList, "MembershipNumberId", "Name");
+            }
+            else
+            {
+                ViewData["PlayerFourId"] = new SelectList(_context.Set<Member>().OrderBy(p => p.Name), "MembershipNumberId", "Name");
+            }
+            ViewData["PlayerOneId"] = new SelectList(_context.Set<Member>().OrderBy(p => p.Name), "MembershipNumberId", "Name");
+            
             return Page();
         }
 
@@ -52,9 +104,16 @@ namespace GolfClub.Pages.Bookings
             {
                 return Page();
             }
-
+            
             _context.Attach(Booking).State = EntityState.Modified;
-
+            Booking.PlayerOne = _context.Member.FirstOrDefault(x => x.MembershipNumberId == Booking.PlayerOneId);
+            Booking.PlayerOneId = Booking.PlayerOneId;
+            Booking.PlayerTwo = null;
+            Booking.PlayerTwoId = null;
+            Booking.PlayerThreeId = null;
+            Booking.PlayerThree = null;
+            Booking.PlayerFour = null;
+            Booking.PlayerFourId = null;
             try
             {
                 await _context.SaveChangesAsync();

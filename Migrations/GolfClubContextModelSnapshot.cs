@@ -23,16 +23,16 @@ namespace GolfClub.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PlayerFourMembershipNumberId")
+                    b.Property<int?>("PlayerFourId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PlayerOneMembershipNumberId")
+                    b.Property<int>("PlayerOneId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PlayerThreeMembershipNumberId")
+                    b.Property<int?>("PlayerThreeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PlayerTwoMembershipNumberId")
+                    b.Property<int?>("PlayerTwoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("TeeTime")
@@ -40,13 +40,13 @@ namespace GolfClub.Migrations
 
                     b.HasKey("BookingId");
 
-                    b.HasIndex("PlayerFourMembershipNumberId");
+                    b.HasIndex("PlayerFourId");
 
-                    b.HasIndex("PlayerOneMembershipNumberId");
+                    b.HasIndex("PlayerOneId");
 
-                    b.HasIndex("PlayerThreeMembershipNumberId");
+                    b.HasIndex("PlayerThreeId");
 
-                    b.HasIndex("PlayerTwoMembershipNumberId");
+                    b.HasIndex("PlayerTwoId");
 
                     b.ToTable("Booking", (string)null);
                 });
@@ -82,21 +82,21 @@ namespace GolfClub.Migrations
                 {
                     b.HasOne("GolfClub.Models.Member", "PlayerFour")
                         .WithMany()
-                        .HasForeignKey("PlayerFourMembershipNumberId");
+                        .HasForeignKey("PlayerFourId");
 
                     b.HasOne("GolfClub.Models.Member", "PlayerOne")
                         .WithMany()
-                        .HasForeignKey("PlayerOneMembershipNumberId")
+                        .HasForeignKey("PlayerOneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GolfClub.Models.Member", "PlayerThree")
                         .WithMany()
-                        .HasForeignKey("PlayerThreeMembershipNumberId");
+                        .HasForeignKey("PlayerThreeId");
 
                     b.HasOne("GolfClub.Models.Member", "PlayerTwo")
                         .WithMany()
-                        .HasForeignKey("PlayerTwoMembershipNumberId");
+                        .HasForeignKey("PlayerTwoId");
 
                     b.Navigation("PlayerFour");
 
