@@ -21,6 +21,7 @@ namespace GolfClub.Pages.Bookings
             _context = context;
         }
 
+        // Handles the GET verb on the bookings page.
         public IActionResult OnGet()
         {
             ViewData["PlayerOneId"] = new SelectList(_context.Set<Member>(), "MembershipNumberId", "Name");
